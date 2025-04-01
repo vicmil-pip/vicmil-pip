@@ -66,7 +66,7 @@ def install_installer():
     with open(vicmil_pip_path + "/.gitignore", "w") as file_: # Create the gitignore file
         file_.write("__pycache__*\nvenv/")
 
-    with urllib.request.urlopen('TODO') as f:
+    with urllib.request.urlopen('https://raw.githubusercontent.com/vicmil-pip/vicmil-pip/refs/heads/main/vicmil_pip/installer.py') as f:
         html = f.read().decode('utf-8')
         with open(vicmil_pip_path + "/installer.py", "w") as install_file: # Create install file
             install_file.write(html)
@@ -86,7 +86,7 @@ def installer_exists():
 
 def update_vicmil_pip():
     # Download the latest features into this file
-    with urllib.request.urlopen('TODO') as f:
+    with urllib.request.urlopen('https://raw.githubusercontent.com/vicmil-pip/vicmil-pip/refs/heads/main/vicmil-pip.py') as f:
         html = f.read().decode('utf-8')
         with open(__file__, "w") as this_file: # Create install file
             this_file.write(html)
