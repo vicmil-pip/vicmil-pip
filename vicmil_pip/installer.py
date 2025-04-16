@@ -354,6 +354,25 @@ def unzip_without_top_dir(zip_file_path, destination_folder, delete_zip=False):
         delete_file(zip_file_path)
 
 
+def pip_install_packages_in_virtual_environment(env_directory_path, packages):
+     if not os.path.exists(env_directory_path):
+         print("Invalid path")
+         raise Exception("Invalid path")
+   
+     my_os = platform.system()
+     for package in packages:
+         if my_os == "Windows":
+             os.system(f'powershell; &"{env_directory_path}/Scripts/pip" install {package}')
+         else:
+             os.system(f'"{env_directory_path}/bin/pip" install {package}')
+             
+
+def python_virtual_environment(env_directory_path):
+     # Setup a python virtual environmet
+     os.makedirs(env_directory_path, exist_ok=True) # Ensure directory exists
+     os.system(f'{sys.executable} -m venv "{env_directory_path}"')
+
+
 def go_to_url(url: str):
     # Opens the webbrowser with the provided url
     import webbrowser
