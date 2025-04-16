@@ -104,7 +104,7 @@ class Packages:
         def __init__(self):
             self.name = "cppOpengl"
             self.description = "c++ utility files, and opengl+sdl library for building graphics applications"
-            self.dependencies = ["cppBasics"]
+            self.dependencies = ["cppBasics", "cppGlm"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppOpengl.zip"
 
     
