@@ -188,7 +188,7 @@ class Packages:
             self.name = "notoFonts"
             self.description = "subset of noto fonts, free to use, supporting a wide range of languages. https://fonts.google.com/noto/fonts"
             self.dependencies = []
-            self.github_repo: str = None
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/notoFonts.zip"
 
 
     class vitB(GitPackage):
