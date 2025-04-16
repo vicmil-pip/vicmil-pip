@@ -196,7 +196,7 @@ class Packages:
             self.name = "vitB"
             self.description = "vitB is a ML model used by segment anything https://github.com/facebookresearch/segment-anything"
             self.dependencies = []
-            self.github_repo: str = None
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/vitB.zip"
 
 
     class nvm(GitPackage):
