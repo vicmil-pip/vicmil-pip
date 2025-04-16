@@ -12,7 +12,10 @@ import shutil
 import importlib
 import sys
 import urllib.request
+import subprocess
 from typing import Dict
+import time
+sys.path.append(str(pathlib.Path(__file__).resolve().parents[0])) 
 
 """
 =============================================================================
@@ -28,12 +31,25 @@ class Package:
 
     def install(self):
         raise Exception("No installer defined")
+    
+
+class GitPackage(Package):
+    def __init__(self):
+        self.github_repo = None
+
+    def install(self):
+        package_path = get_directory_path(__file__, 0) + "/packages/" + self.name
+        tmp_zip = get_directory_path(__file__, 0) + "/temp.zip"
+        download_github_repo_as_zip(self.github_repo, tmp_zip)
+        unzip_without_top_dir(tmp_zip, package_path, delete_zip=True)
+        if os.path.exists(f"{package_path}/setup.py"):
+            run_command(f'"{sys.executable}" "{package_path}/setup.py"')
 
 
 class Packages:
-    class gcc(Package):
+    class gccHelp(Package):
         def __init__(self):
-            self.name = "gcc"
+            self.name = "gccHelp"
             self.description = "opens a webpage to show how to install gcc for your specific platform, gcc is a c/c++ compiler"
             self.dependencies = []
     
@@ -50,103 +66,105 @@ class Packages:
             os.makedirs(package_path, exist_ok=True)
             with open(package_path + "/readme.md", "w") as file:
                 file.write("this directory is intentionally left blank\n")
-            
 
-    class cppBuild(Package):
+
+    class cppEmsdk(GitPackage):
+        def __init__(self):
+            self.name = "cppEmsdk"
+            self.description = "emscripten, used for compiling c++ for the web"
+            self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppEmsdk.zip"
+
+
+    class cppBasicCompiler(GitPackage):
+        def __init__(self):
+            self.name = "cppBasicCompiler"
+            self.description = "basic gcc compiler for windows or linux"
+            self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasicCompiler.zip"
+            
+            
+    class cppBuild(GitPackage):
         def __init__(self):
             self.name = "cppBuild"
             self.description = "Help tools for building c++ projects"
             self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBuild.zip"
 
 
-    class cppBasics(Package):
+    class cppBasics(GitPackage):
         def __init__(self):
             self.name = "cppBasics"
             self.description = "c++ utility files, only requiring a c++11 compiler. Also includes some utility files when compiling for the browser"
             self.dependencies = ["cppBuild"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasics.zip"
+            
 
-
-    class cppOpenglSDL(Package):
+    class cppOpenglSDL(GitPackage):
         def __init__(self):
             self.name = "cppOpenglSDL"
             self.description = "c++ utility files, and opengl+sdl library for building graphics applications"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppOpenglSDL.zip"
 
     
-    class cppStb(Package):
+    class cppStb(GitPackage):
         def __init__(self):
             self.name = "cppStb"
             self.description = "c++ utility files, and stb library for loading images and fonts in c++"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppStb.zip"
 
 
-    class cppGlm(Package):
+    class cppGlm(GitPackage):
         def __init__(self):
             self.name = "cppGlm"
             self.description = "c++ utility files, and glm library for math aimed at graphics and linear algebra"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppGlm.zip"
 
 
-    class cppEmsdk(Package):
-        def __init__(self):
-            self.name = "emsdk"
-            self.description = "emscripten, used for compiling c++ for the web"
-            self.dependencies = []
-        
-        def install(self):
-            install_emsdk(get_directory_path(__file__) + "/" + self.name)
-
-
-    class cppSocketIOClient(Package):
+    class cppSocketIOClient(GitPackage):
         def __init__(self):
             self.name = "cppSocketIOClient"
             self.description = "c++ utility files, and socket io client library for building networking apps"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppSocketIOClient.zip"
 
     
-    class cppMiniz(Package):
+    class cppMiniz(GitPackage):
         def __init__(self):
             self.name = "cppMiniz"
             self.description = "c++ utility files, and miniz library for zipping/unzipping files"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppMiniz.zip"
 
     
-    class cppTinyObjLoader(Package):
+    class cppTinyObjLoader(GitPackage):
         def __init__(self):
             self.name = "cppTinyObjLoader"
             self.description = "c++ utility files, and tiny obj loader library for loading .obj files"
             self.dependencies = ["cppBasics", "cppMiniz"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppTinyObjLoader.zip"
 
 
-    class cpp2DRectPack(Package):
+    class cpp2DRectPack(GitPackage):
         def __init__(self):
             self.name = "cpp2DRectPack"
             self.description = "c++ utility files, and smol-atlas library for packing 2d rectangles on a 2d surface"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasics.zip"
 
     
-    class cppEigen(Package):
+    class cppEigen(GitPackage):
         def __init__(self):
             self.name = "cppEigen"
             self.description = "c++ utility files, and eigen library for various math operations"
             self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppEigen.zip"
 
 
-    class notoFonts(Package):
-        def __init__(self):
-            self.name = "notoFonts"
-            self.description = "subset of noto fonts, free to use, supporting a wide range of languages. https://fonts.google.com/noto/fonts"
-            self.dependencies = []
-
-
-    class vitB(Package):
-        def __init__(self):
-            self.name = "vitB"
-            self.description = "vitB is a ML model used by segment anything https://github.com/facebookresearch/segment-anything"
-            self.dependencies = []
-
-
-    class cppVicmilGui(Package):
+    class cppVicmilGui(GitPackage):
         def __init__(self):
             self.name = "cppVicmilGui"
             self.description = "c++ utility files for building cross-platform graphics applications in c++"
@@ -162,19 +180,39 @@ class Packages:
                 "cpp2DRectPack",
                 "notoFonts"
             ]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppVicmilGui.zip"
 
-    class nvm(Package):
+
+    class notoFonts(GitPackage):
+        def __init__(self):
+            self.name = "notoFonts"
+            self.description = "subset of noto fonts, free to use, supporting a wide range of languages. https://fonts.google.com/noto/fonts"
+            self.dependencies = []
+            self.github_repo: str = None
+
+
+    class vitB(GitPackage):
+        def __init__(self):
+            self.name = "vitB"
+            self.description = "vitB is a ML model used by segment anything https://github.com/facebookresearch/segment-anything"
+            self.dependencies = []
+            self.github_repo: str = None
+
+
+    class nvm(GitPackage):
         def __init__(self):
             self.name = "nvm"
             self.description = "python utility files, and nvm(node version manager), for building node applications"
             self.dependencies = []
+            self.github_repo: str = None
 
     
-    class mkDocs(Package):
+    class mkDocs(GitPackage):
         def __init__(self):
             self.name = "mkDocs"
             self.description = "python utility files, and mkdocs library or creating documentation"
             self.dependencies = []
+            self.github_repo: str = None
 
 
 def get_packages():
@@ -207,7 +245,7 @@ def print_all_packages():
 
 def print_installed_packages():
     # List all the packages and print their description
-    dirs = os.listdir(get_directory_path(__file__, 0)) + "/packages"         
+    dirs = os.listdir(get_directory_path(__file__, 0) + "/packages")
     folders = list()
     for f in dirs:
         if not os.path.isdir(os.path.join(get_directory_path(__file__, 0), f)):
@@ -322,49 +360,6 @@ def go_to_url(url: str):
     webbrowser.open(url, new=0, autoraise=True)
 
 
-def python_virtual_environment(env_directory_path):
-    # Setup a python virtual environmet
-    os.makedirs(env_directory_path, exist_ok=True) # Ensure directory exists
-    os.system(f'{sys.executable} -m venv "{env_directory_path}"')
-
-
-def pip_install_packages_in_virtual_environment(env_directory_path, packages):
-    if not os.path.exists(env_directory_path):
-        print("Invalid path")
-        raise Exception("Invalid path")
-  
-    my_os = platform.system()
-    for package in packages:
-        if my_os == "Windows":
-            os.system(f'powershell; &"{env_directory_path}/Scripts/pip" install {package}')
-        else:
-            os.system(f'"{env_directory_path}/bin/pip" install {package}')
-
-
-def get_site_packages_path(venv_path):
-    """Returns the site-packages path for a given virtual environment."""
-    python_version = f"python{sys.version_info.major}.{sys.version_info.minor}"
-    
-    # Construct the expected site-packages path
-    if os.name == "nt":  # Windows
-        site_packages_path = os.path.join(venv_path, "Lib", "site-packages")
-    else:  # macOS/Linux
-        site_packages_path = os.path.join(venv_path, "lib", python_version, "site-packages")
-
-    return site_packages_path if os.path.exists(site_packages_path) else None
-
-
-def use_other_venv_if_missing(package_name, other_venv_path):
-    try:
-        importlib.import_module(package_name)
-        print(f"{package_name} is already installed in the current environment.")
-    except ImportError:
-        print(f"{package_name} not found. Using the package from the other environment.")
-        other_venv_path = get_site_packages_path(other_venv_path)
-        print(other_venv_path)
-        sys.path.insert(0, other_venv_path)  # Add other venv's site-packages to sys.path
-
-
 def run_command(command: str) -> None:
     """Run a command in the terminal"""
     platform_name = platform.system()
@@ -377,25 +372,6 @@ def run_command(command: str) -> None:
     else:
         print("running command: ", f'{command}')
         os.system(command)
-
-
-def download_file_from_google_drive(drive_url: str, output_file: str):
-    def _extract_id_from_url(self, url: str):
-        url2 = url.split("drive.google.com/file/d/")[1]
-        file_id = url2.split("/")[0]
-        return file_id
-    
-    def _download_large_file_from_google_drive(id, destination):
-        use_other_venv_if_missing("gdown", get_directory_path(__file__, 0) + "/venv")
-        import gdown
-        # Construct the direct URL
-        url = f"https://drive.google.com/uc?id={id}"
-
-        # Download the file
-        gdown.download(url, destination, quiet=False)
-
-    file_id = _extract_id_from_url(drive_url)
-    _download_large_file_from_google_drive(file_id, output_file)
 
 
 def download_github_repo_as_zip(zip_url: str, output_zip_file: str):
@@ -416,39 +392,3 @@ def download_github_repo_as_zip(zip_url: str, output_zip_file: str):
         print(f"Download complete: {output_zip_file}")
     except Exception as e:
         print(f"Error: {e}")
-
-
-def install_emsdk(output_directory: str):
-    my_os = platform.system()
-    if my_os == "Linux":
-        # Download emsdk from git
-        emsdk_git_url = "https://github.com/emscripten-core/emsdk/archive/refs/heads/main.zip"
-        tmp_zip = get_directory_path(__file__, 0) + "/emsdk_temp.zip"
-        download_github_repo_as_zip(emsdk_git_url, tmp_zip)
-        unzip_file(tmp_zip, output_directory, True)
-
-        # Install emsdk
-        emsdk_path = output_directory + "/emsdk/emsdk"
-        run_command('chmod +x "' + emsdk_path + '"')
-        run_command('"' + emsdk_path + '" install latest')
-        run_command('"' + emsdk_path + '" activate latest')
-    elif my_os == "Windows":
-        tmp_zip = get_directory_path(__file__, 0) + "/emsdk_temp.zip"
-        google_drive_path = "TODO"
-        download_file_from_google_drive(google_drive_path, tmp_zip)
-        unzip_without_top_dir(tmp_zip, output_directory, True)
-
-        old_name = output_directory + "/emsdk-win"
-        new_name = output_directory + "emsdk"
-        os.rename(old_name, new_name)
-
-
-def download_file_from_url(file_path: str, file_url: str):
-    # Ensure that parent directory exists
-    os.makedirs(get_directory_path(file_path, 0), exist_ok=True)
-
-    # Iterate through files and download them
-    with urllib.request.urlopen(file_url) as f:
-        html = f.read().decode('utf-8')
-        with open(file_path, "w") as install_file: # Create install file
-            install_file.write(html)
