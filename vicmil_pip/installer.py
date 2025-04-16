@@ -100,12 +100,12 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasics.zip"
             
 
-    class cppOpenglSDL(GitPackage):
+    class cppOpengl(GitPackage):
         def __init__(self):
-            self.name = "cppOpenglSDL"
+            self.name = "cppOpengl"
             self.description = "c++ utility files, and opengl+sdl library for building graphics applications"
             self.dependencies = ["cppBasics"]
-            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppOpenglSDL.zip"
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppOpengl.zip"
 
     
     class cppStb(GitPackage):
