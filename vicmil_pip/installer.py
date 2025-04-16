@@ -104,7 +104,7 @@ class Packages:
         def __init__(self):
             self.name = "cppOpengl"
             self.description = "c++ utility files, and opengl+sdl library for building graphics applications"
-            self.dependencies = ["cppBasics", "cppGlm"]
+            self.dependencies = ["cppBasics"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppOpengl.zip"
 
     
@@ -148,12 +148,12 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppTinyObjLoader.zip"
 
 
-    class cpp2DRectPack(GitPackage):
+    class cppBinPacking(GitPackage):
         def __init__(self):
-            self.name = "cpp2DRectPack"
+            self.name = "cppBinPacking"
             self.description = "c++ utility files, and smol-atlas library for packing 2d rectangles on a 2d surface"
             self.dependencies = ["cppBasics"]
-            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasics.zip"
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBinPacking.zip"
 
     
     class cppEigen(GitPackage):
@@ -170,14 +170,14 @@ class Packages:
             self.description = "c++ utility files for building cross-platform graphics applications in c++"
             self.dependencies = [
                 "cppBasics", 
-                "cppOpenglSDL", 
+                "cppOpengl", 
                 "cppStb", 
                 "cppGlm", 
                 "cppEmsdk", 
                 "cppSocketIOClient", 
                 "cppMiniz", 
                 "cppTinyObjLoader", 
-                "cpp2DRectPack",
+                "cppBinPacking",
                 "notoFonts"
             ]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppVicmilGui.zip"
