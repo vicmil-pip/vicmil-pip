@@ -47,9 +47,9 @@ class GitPackage(Package):
 
 
 class Packages:
-    class gccHelp(Package):
+    class helpGcc(Package):
         def __init__(self):
-            self.name = "gccHelp"
+            self.name = "helpGcc"
             self.description = "opens a webpage to show how to install gcc for your specific platform, gcc is a c/c++ compiler"
             self.dependencies = []
     
@@ -183,34 +183,42 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppVicmilGui.zip"
 
 
-    class notoFonts(GitPackage):
+    class assetsNotoFonts(GitPackage):
         def __init__(self):
-            self.name = "notoFonts"
+            self.name = "assetsNotoFonts"
             self.description = "subset of noto fonts, free to use, supporting a wide range of languages. https://fonts.google.com/noto/fonts"
             self.dependencies = []
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/notoFonts.zip"
 
 
-    class vitB(GitPackage):
+    class assetsVitB(GitPackage):
         def __init__(self):
-            self.name = "vitB"
+            self.name = "assetsVitB"
             self.description = "vitB is a ML model used by segment anything https://github.com/facebookresearch/segment-anything"
             self.dependencies = []
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/vitB.zip"
 
 
-    class nvm(GitPackage):
+    class jsNvm(GitPackage):
         def __init__(self):
-            self.name = "nvm"
-            self.description = "python utility files, and nvm(node version manager), for building node applications"
+            self.name = "jsNvm"
+            self.description = "python utility files, and nvm(node version manager), for building node applications, including react"
             self.dependencies = []
             self.github_repo: str = None
 
     
-    class mkDocs(GitPackage):
+    class pyMkDocs(GitPackage):
         def __init__(self):
-            self.name = "mkDocs"
+            self.name = "pyMkDocs"
             self.description = "python utility files, and mkdocs library or creating documentation"
+            self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyMkDocs.zip"
+
+
+    class pyAutostart(GitPackage):
+        def __init__(self):
+            self.name = "pyAutostart"
+            self.description = "python utility files for helping starting applications when your computer starts"
             self.dependencies = []
             self.github_repo: str = None
 
