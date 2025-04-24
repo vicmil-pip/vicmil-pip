@@ -207,6 +207,14 @@ class Packages:
             self.github_repo: str = None
 
     
+    class pyCertBot(GitPackage):
+        def __init__(self):
+            self.name = "pyCertBot"
+            self.description = "Automatically set up an ssl certificate for https traffic using certbot"
+            self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyCertBot.zip"
+
+    
     class pyMkDocs(GitPackage):
         def __init__(self):
             self.name = "pyMkDocs"
