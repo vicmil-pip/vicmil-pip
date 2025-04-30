@@ -47,27 +47,6 @@ class GitPackage(Package):
 
 
 class Packages:
-    class helpGcc(Package):
-        def __init__(self):
-            self.name = "helpGcc"
-            self.description = "opens a webpage to show how to install gcc for your specific platform, gcc is a c/c++ compiler"
-            self.dependencies = []
-    
-        def install(self):
-            url = ""
-            if platform.system() == "Windows":
-                url = "https://code.visualstudio.com/docs/cpp/config-mingw"
-                
-            if platform.system() == "Linux":
-                url = "https://medium.com/@adwalkz/demystifying-development-a-guide-to-build-essential-in-ubuntu-for-seamless-software-compilation-b590b5a298bb"
-                
-            go_to_url(url)
-            package_path = get_directory_path(__file__, 0) + "/packages/" + self.name
-            os.makedirs(package_path, exist_ok=True)
-            with open(package_path + "/readme.md", "w") as file:
-                file.write("this directory is intentionally left blank\n")
-
-
     class cppEmsdk(GitPackage):
         def __init__(self):
             self.name = "cppEmsdk"
@@ -173,9 +152,6 @@ class Packages:
                 "cppOpengl", 
                 "cppStb", 
                 "cppGlm", 
-                "cppEmsdk", 
-                "cppSocketIOClient", 
-                "cppMiniz", 
                 "cppTinyObjLoader", 
                 "cppBinPacking",
                 "notoFonts"
@@ -211,7 +187,7 @@ class Packages:
         def __init__(self):
             self.name = "pyCertBot"
             self.description = "Automatically set up an ssl certificate for https traffic using certbot"
-            self.dependencies = []
+            self.dependencies = ["pyUtil"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyCertBot.zip"
 
     
@@ -219,16 +195,16 @@ class Packages:
         def __init__(self):
             self.name = "pyMkDocs"
             self.description = "python utility files, and mkdocs library or creating documentation"
-            self.dependencies = []
+            self.dependencies = ["pyUtil"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyMkDocs.zip"
 
 
-    class pyAutostart(GitPackage):
+    class pyUtil(GitPackage):
         def __init__(self):
-            self.name = "pyAutostart"
-            self.description = "python utility files for helping starting applications when your computer starts"
+            self.name = "pyUtil"
+            self.description = "python utility functions"
             self.dependencies = []
-            self.github_repo: str = None
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyUtil.zip"
 
 
 def get_packages():
@@ -322,7 +298,7 @@ def remove_package(package_name: str):
 """
 
 
-def get_directory_path(__file__in, up_directories):
+def get_directory_path(__file__in, up_directories=0):
     return str(pathlib.Path(__file__in).parents[up_directories].resolve()).replace("\\", "/")
 
 
@@ -370,40 +346,39 @@ def unzip_without_top_dir(zip_file_path, destination_folder, delete_zip=False):
         delete_file(zip_file_path)
 
 
+def get_venv_pip_path(env_directory_path):
+    if platform.system() == "Windows":
+        return f'{env_directory_path}/Scripts/pip'
+    else:
+        return f'{env_directory_path}/bin/pip'
+    
+
 def pip_install_packages_in_virtual_environment(env_directory_path, packages):
-     if not os.path.exists(env_directory_path):
-         print("Invalid path")
-         raise Exception("Invalid path")
-   
-     my_os = platform.system()
-     for package in packages:
-         if my_os == "Windows":
-             os.system(f'powershell; &"{env_directory_path}/Scripts/pip" install {package}')
-         else:
-             os.system(f'"{env_directory_path}/bin/pip" install {package}')
+    if not os.path.exists(env_directory_path):
+        print("Invalid path")
+        raise Exception("Invalid path")
+    
+    for package in packages:
+        run_command(f'"{get_venv_pip_path(env_directory_path)}" install {package}')
              
 
 def python_virtual_environment(env_directory_path):
-     # Setup a python virtual environmet
-     os.makedirs(env_directory_path, exist_ok=True) # Ensure directory exists
-     os.system(f'{sys.executable} -m venv "{env_directory_path}"')
-
-
-def go_to_url(url: str):
-    # Opens the webbrowser with the provided url
-    import webbrowser
-    webbrowser.open(url, new=0, autoraise=True)
+    # Setup a python virtual environmet
+    os.makedirs(env_directory_path, exist_ok=True) # Ensure directory exists
+    run_command(f'"{sys.executable}" -m venv "{env_directory_path}"')
 
 
 def run_command(command: str) -> None:
     """Run a command in the terminal"""
-    platform_name = platform.system()
-    if platform_name == "Windows": # Windows
-        print("running command: ", f'powershell; &{command}')
+    if platform.system() == "Windows": # Windows
+        win_command = None
         if command[0] != '"':
-            os.system(f'powershell; {command}')
+            win_command = f'powershell; {command}'
         else:
-            os.system(f'powershell; &{command}')
+            win_command = f'powershell; &{command}'
+
+        print("running command: ", f'{win_command}')
+        os.system(win_command)
     else:
         print("running command: ", f'{command}')
         os.system(command)
