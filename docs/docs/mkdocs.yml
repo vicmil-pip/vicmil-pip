@@ -26,6 +26,7 @@ theme:
 nav:
   - Home: index.md
   - Packages: package_info.md
+  - Learn more: more_info.md
 markdown_extensions:
   - codehilite:
       guess_lang: false # Ensures correct language highlighting

@@ -299,6 +299,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="more_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Learn more
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -362,16 +384,18 @@ with urllib.request.urlopen(&#39;https://raw.githubusercontent.com/vicmil-pip/vi
 <div class="highlight"><pre><span></span><code>python3 vicmil-pip.py packages
 </code></pre></div>
 <h1 id="more-details">More details</h1>
-<p>When you install something, a map called vicmil/ will be created, where all packages
-you install will be stored. Nothing external will be installed on your computer.</p>
+<p>When you install something, a map called vicmil_pip/ will be created, where all packages
+you install will be stored under vicmil_pip/packages. Nothing external will be installed on
+your computer.</p>
 <p>The idea is for all the packages to be cross-platform(windows, linux, mac), so the thing
 that actually gets installed may vary depending on platform. The idea is for all packages
 to use a permissive licence, so they can be used in commercial applications.</p>
 <p>You can also opt-out of using vicmil-pip but still use the packages by navigating to
-the package you want to install, found under packages, where you will find manual
-install instructions. It should be completely fine and should work the same, but
-may be more work to get up and running. In most cases, you can just extract the repo
-and put it under vicmil_pip/packages/&lt;package name&gt;</p>
+the package you want to install, found under packages and then install it manually.
+It should work the same, but may be more work to get up and running. In most cases,
+you can just extract the repo and put it under vicmil_pip/packages/&lt;package name&gt;.
+Some packages may also have a setup.py script you need to run and require that you
+install other packages, listed under requirements.</p>
 
 
 

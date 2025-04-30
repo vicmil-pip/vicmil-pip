@@ -159,12 +159,12 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppVicmilGui.zip"
 
 
-    class assetsNotoFonts(GitPackage):
+    class assetFonts(GitPackage):
         def __init__(self):
-            self.name = "assetsNotoFonts"
-            self.description = "subset of noto fonts, free to use, supporting a wide range of languages. https://fonts.google.com/noto/fonts"
+            self.name = "assetFonts"
+            self.description = "some fonts, free to use, supporting a wide range of languages"
             self.dependencies = []
-            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/notoFonts.zip"
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/assetFonts.zip"
 
 
     class assetsVitB(GitPackage):

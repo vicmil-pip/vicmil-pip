@@ -1,10 +1,10 @@
 # List of packages
 
-## assetsNotoFonts
+## assetFonts
 
-subset of noto fonts, free to use, supporting a wide range of languages. https://fonts.google.com/noto/fonts
+some fonts, free to use, supporting a wide range of languages
 
-github_repo: [https://github.com/vicmil-pip/vicmil-pip-assets/tree/notoFonts](https://github.com/vicmil-pip/vicmil-pip-assets/tree/notoFonts)
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-assets/tree/assetFonts](https://github.com/vicmil-pip/vicmil-pip-assets/tree/assetFonts)
 
 
 ## assetsVitB
@@ -122,12 +122,7 @@ c++ utility files for building cross-platform graphics applications in c++
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppVicmilGui](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppVicmilGui)
 
-dependencies: ['cppBasics', 'cppOpengl', 'cppStb', 'cppGlm', 'cppEmsdk', 'cppSocketIOClient', 'cppMiniz', 'cppTinyObjLoader', 'cppBinPacking', 'notoFonts']
-
-
-## helpGcc
-
-opens a webpage to show how to install gcc for your specific platform, gcc is a c/c++ compiler
+dependencies: ['cppBasics', 'cppOpengl', 'cppStb', 'cppGlm', 'cppTinyObjLoader', 'cppBinPacking', 'notoFonts']
 
 
 ## jsNvm
@@ -135,9 +130,13 @@ opens a webpage to show how to install gcc for your specific platform, gcc is a 
 python utility files, and nvm(node version manager), for building node applications, including react
 
 
-## pyAutostart
+## pyCertBot
 
-python utility files for helping starting applications when your computer starts
+Automatically set up an ssl certificate for https traffic using certbot
+
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyCertBot](https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyCertBot)
+
+dependencies: ['pyUtil']
 
 
 ## pyMkDocs
@@ -145,5 +144,14 @@ python utility files for helping starting applications when your computer starts
 python utility files, and mkdocs library or creating documentation
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyMkDocs](https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyMkDocs)
+
+dependencies: ['pyUtil']
+
+
+## pyUtil
+
+python utility functions
+
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyUtil](https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyUtil)
 
 

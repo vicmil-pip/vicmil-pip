@@ -57,4 +57,4 @@ def build_package_index():
 
 if __name__ == "__main__":
     build_package_index()
-    compile_mkdocs(get_directory(__file__) + "/docs")
+    compile_mkdocs(get_directory_path(__file__) + "/docs")
