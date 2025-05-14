@@ -167,7 +167,7 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-assets/archive/refs/heads/assetFonts.zip"
 
 
-    class assetsVitB(GitPackage):
+    class assetVitB(GitPackage):
         def __init__(self):
             self.name = "assetsVitB"
             self.description = "vitB is a ML model used by segment anything https://github.com/facebookresearch/segment-anything"
@@ -197,6 +197,14 @@ class Packages:
             self.description = "python utility files, and mkdocs library or creating documentation"
             self.dependencies = ["pyUtil"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyMkDocs.zip"
+
+    
+    class pyHostDocs(GitPackage):
+        def __init__(self):
+            self.name = "pyHostDocs"
+            self.description = "python utility files, and flask to host documentation"
+            self.dependencies = ["pyUtil"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyHostDocs.zip"
 
 
     class pyUtil(GitPackage):
