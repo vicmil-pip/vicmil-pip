@@ -58,7 +58,7 @@ class Packages:
     class cppBasicCompiler(GitPackage):
         def __init__(self):
             self.name = "cppBasicCompiler"
-            self.description = "basic gcc compiler for windows or linux"
+            self.description = "!unstable! basic gcc compiler for windows or linux"
             self.dependencies = []
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasicCompiler.zip"
             
@@ -146,7 +146,7 @@ class Packages:
     class cppVicmilGui(GitPackage):
         def __init__(self):
             self.name = "cppVicmilGui"
-            self.description = "c++ utility files for building cross-platform graphics applications in c++"
+            self.description = "!unstable! c++ utility files for building cross-platform graphics applications in c++"
             self.dependencies = [
                 "cppBasics", 
                 "cppOpengl", 
@@ -178,7 +178,7 @@ class Packages:
     class jsNvm(GitPackage):
         def __init__(self):
             self.name = "jsNvm"
-            self.description = "python utility files, and nvm(node version manager), for building node applications, including react"
+            self.description = "!unstable! python utility files, and nvm(node version manager), for building node applications, including react"
             self.dependencies = []
             self.github_repo: str = None
 
@@ -199,12 +199,20 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyMkDocs.zip"
 
     
-    class pyHostDocs(GitPackage):
+    class pyGitUtil(GitPackage):
         def __init__(self):
-            self.name = "pyHostDocs"
-            self.description = "python utility files, and flask to host documentation"
+            self.name = "pyGitUtil"
+            self.description = "!unstable! python utility files, and flask to host documentation"
             self.dependencies = ["pyUtil"]
-            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyHostDocs.zip"
+            self.github_repo: str = None
+
+
+    class pyFlaskUtil(GitPackage):
+        def __init__(self):
+            self.name = "pyFlaskUtil"
+            self.description = "!unstable! python utility functions, and flask"
+            self.dependencies = ["pyUtil"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-python-packages/archive/refs/heads/pyFlaskUtil.zip"
 
 
     class pyUtil(GitPackage):
