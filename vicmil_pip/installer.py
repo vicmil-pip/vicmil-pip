@@ -51,7 +51,7 @@ class Packages:
         def __init__(self):
             self.name = "cppEmsdk"
             self.description = "emscripten, used for compiling c++ for the web"
-            self.dependencies = []
+            self.dependencies = ["pyUtil"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppEmsdk.zip"
 
 
