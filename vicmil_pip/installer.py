@@ -4,7 +4,6 @@ This is the installer that contains all information for how to install things
 
 import platform
 import inspect
-import requests
 import zipfile
 import os
 import pathlib
@@ -418,6 +417,79 @@ def run_command(command: str) -> None:
         os.system(command)
 
 
+def get_venv_site_packages_path(venv_path):
+    """Returns the site-packages path for a given virtual environment."""
+    python_version = f"python{sys.version_info.major}.{sys.version_info.minor}"
+    
+    # Construct the expected site-packages path
+    if platform.system() == "Windows": # Windows
+        # The site package path may vary on windows, so we check for both
+        site_packages_path = os.path.join(venv_path, "Lib", "site-packages")
+        if not os.path.exists(site_packages_path):
+            site_packages_path = os.path.join(venv_path, "lib", python_version, "site-packages")
+    else:  # macOS/Linux
+        site_packages_path = os.path.join(venv_path, "lib", python_version, "site-packages")
+
+    return site_packages_path if os.path.exists(site_packages_path) else None
+
+
+def module_installed(module_name: str) -> bool:
+    try:
+        importlib.import_module(module_name)
+        return True
+    except ImportError:
+        return False
+    
+
+def include_other_venv(other_venv_path: str):
+    site_package_path = get_venv_site_packages_path(other_venv_path)
+    if not other_venv_path in sys.path:
+        print("Updating sys.path with other venv", site_package_path)
+        sys.path.append(site_package_path)  # Add other venv's site-packages to sys.path
+    
+
+class PipManager:
+    def __init__(self):
+        self._modules = list()
+        self.venv_path = get_directory_path(__file__) + "/venv"
+        self.installed_pip_packages = list()
+
+    def add_module(self, module_name: str, pip_package_if_missing: str):
+        self._modules.append((module_name, pip_package_if_missing))
+
+    def add_pip_package(self, pip_package: str):
+        self._modules.append((None, pip_package))
+
+    def include_other_venv(self):
+        include_other_venv(self.venv_path)
+
+    def install_missing_modules(self):
+        """
+        [vmdoc:start]
+        # PipManager.install_missing_modules()
+
+        Tries to see if the module is available, 
+            if it fails, it installs the missing pip packages inside self.venv_path
+        [vmdoc:end]
+        """
+        missing_pip_packages = set()
+
+        for module_name, pip_package in self._modules:
+            if not module_name or not module_installed(module_name=module_name):
+                if not pip_package in self.installed_pip_packages:
+                    missing_pip_packages.add(pip_package)
+                    self.installed_pip_packages.append(pip_package)
+
+        if len(missing_pip_packages) > 0:
+            if not os.path.exists(self.venv_path):
+                python_virtual_environment(self.venv_path)
+
+            missing_pip_packages = list(missing_pip_packages)
+            pip_install_packages_in_virtual_environment(self.venv_path, missing_pip_packages)
+
+            self.include_other_venv()
+
+
 def download_github_repo_as_zip(zip_url: str, output_zip_file: str):
     """Downloads a GitHub repository as a ZIP file.
     
@@ -426,6 +498,12 @@ def download_github_repo_as_zip(zip_url: str, output_zip_file: str):
         output_file (str): The name of the output ZIP file (e.g., "repo.zip").
     """
     try:
+        pip_manager = PipManager()
+        if not module_installed("requests"):
+            pip_manager.add_pip_package("requests")
+            pip_manager.install_missing_modules()
+
+        import requests
         response = requests.get(zip_url, stream=True)
         response.raise_for_status()  # Raise an error for bad responses
         
