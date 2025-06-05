@@ -36,8 +36,10 @@ def build_package_index():
     packages = installer.get_packages()
 
     file_contents = "# List of packages\n\n"
+    package_counter = 0
     for package in packages.keys():
-        file_contents += f"## {packages[package].name}" + "\n\n"
+        package_counter += 1
+        file_contents += f"## {package_counter}. {packages[package].name}" + "\n\n"
         file_contents += packages[package].description + "\n\n"
 
         if hasattr(packages[package], 'github_repo') and packages[package].github_repo:

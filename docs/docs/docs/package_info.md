@@ -1,27 +1,20 @@
 # List of packages
 
-## assetFonts
+## 1. assetFonts
 
 some fonts, free to use, supporting a wide range of languages
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-assets/tree/assetFonts](https://github.com/vicmil-pip/vicmil-pip-assets/tree/assetFonts)
 
 
-## assetsVitB
+## 2. assetsVitB
 
 vitB is a ML model used by segment anything https://github.com/facebookresearch/segment-anything
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-assets/tree/vitB](https://github.com/vicmil-pip/vicmil-pip-assets/tree/vitB)
 
 
-## cppBasicCompiler
-
-basic gcc compiler for windows or linux
-
-github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBasicCompiler](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBasicCompiler)
-
-
-## cppBasics
+## 3. cppBasics
 
 c++ utility files, only requiring a c++11 compiler. Also includes some utility files when compiling for the browser
 
@@ -30,7 +23,7 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBasi
 dependencies: ['cppBuild']
 
 
-## cppBinPacking
+## 4. cppBinPacking
 
 c++ utility files, and smol-atlas library for packing 2d rectangles on a 2d surface
 
@@ -39,14 +32,34 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBinP
 dependencies: ['cppBasics']
 
 
-## cppBuild
+## 5. cppBindings
+
+!unstable! utility files for building c++ bindings, especially to python
+
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBindings](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBindings)
+
+dependencies: ['cppBasics']
+
+
+## 6. cppBuild
 
 Help tools for building c++ projects
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBuild](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBuild)
 
+dependencies: ['pyUtil']
 
-## cppEigen
+
+## 7. cppCompiler
+
+!unstable! basic gcc compiler for windows or linux
+
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBasicCompiler](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppBasicCompiler)
+
+dependencies: ['pyUtil']
+
+
+## 8. cppEigen
 
 c++ utility files, and eigen library for various math operations
 
@@ -55,14 +68,16 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppEige
 dependencies: ['cppBasics']
 
 
-## cppEmsdk
+## 9. cppEmsdk
 
 emscripten, used for compiling c++ for the web
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppEmsdk](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppEmsdk)
 
+dependencies: ['pyUtil']
 
-## cppGlm
+
+## 10. cppGlm
 
 c++ utility files, and glm library for math aimed at graphics and linear algebra
 
@@ -71,7 +86,16 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppGlm]
 dependencies: ['cppBasics']
 
 
-## cppMiniz
+## 11. cppMingwStdThreads
+
+c++ files for fixing missing threads implementation in mingw compiler on windows
+
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppMingwStdThreads](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppMingwStdThreads)
+
+dependencies: ['cppBasics']
+
+
+## 12. cppMiniz
 
 c++ utility files, and miniz library for zipping/unzipping files
 
@@ -80,7 +104,7 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppMini
 dependencies: ['cppBasics']
 
 
-## cppOpengl
+## 13. cppOpengl
 
 c++ utility files, and opengl+sdl library for building graphics applications
 
@@ -89,7 +113,7 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppOpen
 dependencies: ['cppBasics']
 
 
-## cppSocketIOClient
+## 14. cppSocketIOClient
 
 c++ utility files, and socket io client library for building networking apps
 
@@ -98,7 +122,7 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppSock
 dependencies: ['cppBasics']
 
 
-## cppStb
+## 15. cppStb
 
 c++ utility files, and stb library for loading images and fonts in c++
 
@@ -107,7 +131,7 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppStb]
 dependencies: ['cppBasics']
 
 
-## cppTinyObjLoader
+## 16. cppTinyObjLoader
 
 c++ utility files, and tiny obj loader library for loading .obj files
 
@@ -116,21 +140,21 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppTiny
 dependencies: ['cppBasics', 'cppMiniz']
 
 
-## cppVicmilGui
+## 17. cppVicmilGui
 
-c++ utility files for building cross-platform graphics applications in c++
+!unstable! c++ utility files for building cross-platform graphics applications in c++
 
 github_repo: [https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppVicmilGui](https://github.com/vicmil-pip/vicmil-pip-cpp-packages/tree/cppVicmilGui)
 
-dependencies: ['cppBasics', 'cppOpengl', 'cppStb', 'cppGlm', 'cppTinyObjLoader', 'cppBinPacking', 'notoFonts']
+dependencies: ['cppBasics', 'cppOpengl', 'cppStb', 'cppGlm', 'cppTinyObjLoader', 'cppBinPacking', 'assetFonts']
 
 
-## jsNvm
+## 18. jsNvm
 
-python utility files, and nvm(node version manager), for building node applications, including react
+!unstable! python utility files, and nvm(node version manager), for building node applications, including react
 
 
-## pyCertBot
+## 19. pyCertBot
 
 Automatically set up an ssl certificate for https traffic using certbot
 
@@ -139,7 +163,23 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyCe
 dependencies: ['pyUtil']
 
 
-## pyMkDocs
+## 20. pyFlaskUtil
+
+!unstable! python utility functions, and flask
+
+github_repo: [https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyFlaskUtil](https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyFlaskUtil)
+
+dependencies: ['pyUtil']
+
+
+## 21. pyGitUtil
+
+!unstable! python utility files, and flask to host documentation
+
+dependencies: ['pyUtil']
+
+
+## 22. pyMkDocs
 
 python utility files, and mkdocs library or creating documentation
 
@@ -148,7 +188,7 @@ github_repo: [https://github.com/vicmil-pip/vicmil-pip-python-packages/tree/pyMk
 dependencies: ['pyUtil']
 
 
-## pyUtil
+## 23. pyUtil
 
 python utility functions
 
