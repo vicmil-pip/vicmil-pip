@@ -69,7 +69,7 @@ class Packages:
         def __init__(self):
             self.name = "cppBuild"
             self.description = "Help tools for building c++ projects"
-            self.dependencies = []
+            self.dependencies = ["pyUtil"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBuild.zip"
 
 
