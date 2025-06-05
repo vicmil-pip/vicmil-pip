@@ -142,6 +142,14 @@ class Packages:
             self.dependencies = ["cppBasics"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppEigen.zip"
 
+    
+    class cppBindings(GitPackage):
+        def __init__(self):
+            self.name = "cppBindings"
+            self.description = "!unstable! utility files for building c++ bindings, especially to python"
+            self.dependencies = ["cppBasics"]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBindings.zip"
+
 
     class cppVicmilGui(GitPackage):
         def __init__(self):
