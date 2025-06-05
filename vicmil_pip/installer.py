@@ -59,7 +59,7 @@ class Packages:
         def __init__(self):
             self.name = "cppCompiler"
             self.description = "!unstable! basic gcc compiler for windows or linux"
-            self.dependencies = []
+            self.dependencies = ["pyUtil"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasicCompiler.zip"
             
             
