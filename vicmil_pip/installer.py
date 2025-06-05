@@ -55,9 +55,9 @@ class Packages:
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppEmsdk.zip"
 
 
-    class cppBasicCompiler(GitPackage):
+    class cppCompiler(GitPackage):
         def __init__(self):
-            self.name = "cppBasicCompiler"
+            self.name = "cppCompiler"
             self.description = "!unstable! basic gcc compiler for windows or linux"
             self.dependencies = []
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasicCompiler.zip"
