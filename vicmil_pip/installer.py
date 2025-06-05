@@ -59,7 +59,9 @@ class Packages:
         def __init__(self):
             self.name = "cppBasicCompiler"
             self.description = "!unstable! basic gcc compiler for windows or linux"
-            self.dependencies = []
+            self.dependencies = [
+                "cppMingwStdThreads" # Only really needed on windows, but include just in case
+            ]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBasicCompiler.zip"
             
             
@@ -154,9 +156,19 @@ class Packages:
                 "cppGlm", 
                 "cppTinyObjLoader", 
                 "cppBinPacking",
-                "notoFonts"
+                "assetFonts"
             ]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppVicmilGui.zip"
+
+    
+    class cppMingwStdThreads(GitPackage):
+        def __init__(self):
+            self.name = "cppMingwStdThreads"
+            self.description = "c++ files for fixing missing threads implementation in mingw compiler on windows"
+            self.dependencies = [
+                "cppBasics"
+            ]
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppMingwStdThreads.zip"
 
 
     class assetFonts(GitPackage):
