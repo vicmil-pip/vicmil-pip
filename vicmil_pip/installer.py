@@ -149,6 +149,22 @@ class Packages:
             self.dependencies = ["cppBasics"]
             self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppBindings.zip"
 
+    
+    class cppJson(GitPackage):
+        def __init__(self):
+            self.name = "cppJson"
+            self.description = "!unstable! utility files for handling json using c++"
+            self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppJson.zip"
+
+
+    class cppEntities(GitPackage):
+        def __init__(self):
+            self.name = "cppEntities"
+            self.description = "!unstable! utility files for handling entities in c++, such as id management, storage, etc."
+            self.dependencies = []
+            self.github_repo: str = "https://github.com/vicmil-pip/vicmil-pip-cpp-packages/archive/refs/heads/cppEntities.zip"
+
 
     class cppVicmilGui(GitPackage):
         def __init__(self):
